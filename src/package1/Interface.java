@@ -18,10 +18,10 @@ public class Interface extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        buttonSortear = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        buttonMostrarPalpites = new javax.swing.JButton();
 
         jLabel2.setText("jLabel2");
 
@@ -41,13 +41,23 @@ public class Interface extends javax.swing.JFrame {
 
         jLabel4.setText("Palpite");
 
-        jButton2.setText("Sortear o Numero");
+        buttonSortear.setText("Sortear o Numero");
+        buttonSortear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSortearActionPerformed(evt);
+            }
+        });
 
         jTextField1.setText("jTextField1");
 
         jTextField2.setText("jTextField2");
 
-        jButton3.setText("Mostar Palpites");
+        buttonMostrarPalpites.setText("Mostar Palpites");
+        buttonMostrarPalpites.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonMostrarPalpitesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -73,9 +83,9 @@ public class Interface extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(72, 72, 72)
-                        .addComponent(jButton2)
+                        .addComponent(buttonSortear)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)))
+                        .addComponent(buttonMostrarPalpites)))
                 .addGap(75, 75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -94,8 +104,8 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(buttonSortear)
+                    .addComponent(buttonMostrarPalpites))
                 .addContainerGap())
         );
 
@@ -103,8 +113,18 @@ public class Interface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void buttonMostrarPalpitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMostrarPalpitesActionPerformed
+        Palpites palpites = new Palpites(this, true);
+        palpites.setVisible(true);
+    }//GEN-LAST:event_buttonMostrarPalpitesActionPerformed
+
+    private void buttonSortearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSortearActionPerformed
+        Resultados resultados = new Resultados(this, true);
+        resultados.setVisible(true);
+    }//GEN-LAST:event_buttonSortearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -137,9 +157,9 @@ public class Interface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonMostrarPalpites;
+    private javax.swing.JButton buttonSortear;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
