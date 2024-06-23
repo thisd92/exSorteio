@@ -14,9 +14,11 @@ public class Resultados extends javax.swing.JDialog {
     /**
      * Creates new form Resultados
      */
-    public Resultados(java.awt.Frame parent, boolean modal) {
+    public Resultados(java.awt.Frame parent, boolean modal, Sorteio sorteio) {
         super(parent, modal);
         initComponents();
+
+        labelNumSorteado.setText(String.valueOf(sorteio.getNumeroSorteado()));
     }
 
     /**
@@ -38,8 +40,9 @@ public class Resultados extends javax.swing.JDialog {
         resultado7 = new javax.swing.JLabel();
         resultado8 = new javax.swing.JLabel();
         resultado9 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        labelTitNumSorteado = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        labelNumSorteado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -63,7 +66,7 @@ public class Resultados extends javax.swing.JDialog {
 
         resultado9.setText("9");
 
-        jLabel1.setText("Numero Sorteado: + numero");
+        labelTitNumSorteado.setText("Numero Sorteado:");
 
         jLabel2.setText("Ganhador + voce ganhou parabens");
 
@@ -73,12 +76,6 @@ public class Resultados extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(resultado2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(resultado3))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(resultado4))
@@ -103,11 +100,18 @@ public class Resultados extends javax.swing.JDialog {
                             .addComponent(labelTituloResultados)
                             .addComponent(resultado1))
                         .addGap(30, 30, 30)
-                        .addComponent(jLabel1))
+                        .addComponent(labelTitNumSorteado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelNumSorteado, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(90, 90, 90)
-                        .addComponent(jLabel2)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(resultado2)
+                            .addComponent(resultado3))))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,7 +119,8 @@ public class Resultados extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelTituloResultados)
-                    .addComponent(jLabel1))
+                    .addComponent(labelTitNumSorteado)
+                    .addComponent(labelNumSorteado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(resultado1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -144,8 +149,9 @@ public class Resultados extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel labelNumSorteado;
+    private javax.swing.JLabel labelTitNumSorteado;
     private javax.swing.JLabel labelTituloResultados;
     private javax.swing.JLabel resultado1;
     private javax.swing.JLabel resultado2;

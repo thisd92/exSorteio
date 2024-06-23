@@ -1,11 +1,16 @@
 package sorteio;
 
-import javax.swing.JFrame;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 public class Interface extends javax.swing.JFrame {
 
+    private int numRandomico = 0;
+    private Sorteio sorteio;
+
     public Interface() {
         initComponents();
+        sorteio = new Sorteio();
     }
 
     @SuppressWarnings("unchecked")
@@ -14,24 +19,25 @@ public class Interface extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jButton1 = new javax.swing.JButton();
+        btnPalpite = new javax.swing.JButton();
         labelSorteio = new javax.swing.JLabel();
         labelNome = new javax.swing.JLabel();
         labelPalpite = new javax.swing.JLabel();
         buttonSortear = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
+        txtPalpite = new javax.swing.JTextField();
         buttonMostrarPalpites = new javax.swing.JButton();
+        boxParticipantes = new javax.swing.JComboBox<>();
 
         jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("frame");
 
-        jButton1.setText("Cadastrar Palpite");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnPalpite.setText("Cadastrar Palpite");
+        btnPalpite.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnPalpiteActionPerformed(evt);
             }
         });
 
@@ -48,10 +54,6 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setText("jTextField1");
-
-        jTextField2.setText("jTextField2");
-
         buttonMostrarPalpites.setText("Mostar Palpites");
         buttonMostrarPalpites.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,30 +65,33 @@ public class Interface extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelNome)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(labelPalpite)
-                            .addGap(18, 18, 18)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelNome)
+                            .addComponent(labelPalpite))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPalpite, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnPalpite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(boxParticipantes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(163, 163, 163)
-                        .addComponent(labelSorteio))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(buttonSortear)
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonMostrarPalpites)))
-                .addGap(75, 75, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(163, 163, 163)
+                                .addComponent(labelSorteio))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addComponent(buttonSortear)
+                                .addGap(18, 18, 18)
+                                .addComponent(buttonMostrarPalpites)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,12 +101,13 @@ public class Interface extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNome)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPalpite))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPalpite)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPalpite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(boxParticipantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonSortear)
@@ -112,9 +118,17 @@ public class Interface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnPalpiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPalpiteActionPerformed
+        Pessoa participante = new Pessoa();
+        participante.setNome(txtNome.getText());
+        participante.setNumeroEscolhido(Integer.parseInt(txtPalpite.getText()));
+        sorteio.cadastrarPessoa(participante);
+        atualizarBoxParticipantes();
+        JOptionPane.showMessageDialog(this, "Participante cadastrado com sucesso!");
+        txtNome.setText("");
+        txtPalpite.setText("");
+
+    }//GEN-LAST:event_btnPalpiteActionPerformed
 
     private void buttonMostrarPalpitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMostrarPalpitesActionPerformed
         Palpites palpites = new Palpites(this, true);
@@ -122,7 +136,13 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonMostrarPalpitesActionPerformed
 
     private void buttonSortearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSortearActionPerformed
-        Resultados resultados = new Resultados(this, true);
+        Pessoa vencedor = sorteio.realizarSorteio();
+        List<Pessoa> participantes = sorteio.getPessoas();
+        if (participantes.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Não há participantes cadastrados");
+            return;
+        }
+        Resultados resultados = new Resultados(this, true, sorteio);
         resultados.setVisible(true);
     }//GEN-LAST:event_buttonSortearActionPerformed
 
@@ -159,16 +179,47 @@ public class Interface extends javax.swing.JFrame {
         });
     }
 
+    private void atualizarBoxParticipantes() {
+        boxParticipantes.removeAllItems();
+        List<Pessoa> participantes = sorteio.getPessoas();
+        for (Pessoa p : participantes) {
+            boxParticipantes.addItem(p);
+        }
+    }
+
+    private void atualizarCamposParticipanteSelecionado() {
+        Pessoa participanteSelecionado = (Pessoa) boxParticipantes.getSelectedItem();
+        if (participanteSelecionado != null) {
+            txtNome.setText(participanteSelecionado.getNome());
+            txtPalpite.setText(String.valueOf(participanteSelecionado.getNumeroEscolhido()));
+        }
+    }
+
+    private void editarPalpite() {
+        Pessoa participanteSelecionado = (Pessoa) boxParticipantes.getSelectedItem();
+        if (participanteSelecionado != null) {
+            try {
+                int novoPalpite = Integer.parseInt(txtPalpite.getText());
+                sorteio.atualizarPalpite(participanteSelecionado, novoPalpite);
+                JOptionPane.showMessageDialog(this, "Palpite atualizado com sucesso!");
+                atualizarCamposParticipanteSelecionado();
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Erro: Palpite deve ser um número inteiro válido.");
+            }
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Pessoa> boxParticipantes;
+    private javax.swing.JButton btnPalpite;
     private javax.swing.JButton buttonMostrarPalpites;
     private javax.swing.JButton buttonSortear;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelPalpite;
     private javax.swing.JLabel labelSorteio;
+    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtPalpite;
     // End of variables declaration//GEN-END:variables
 }
