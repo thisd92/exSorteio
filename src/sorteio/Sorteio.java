@@ -15,7 +15,15 @@ public class Sorteio {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        int numeroEscolhido = SorteioClass.gerarNumeroRandomico();
+        
+        SorteioClass sorteio = new SorteioClass();
+        Pessoa helio = new Pessoa("Hélio", numeroEscolhido);
+        
+        
+        
+        System.out.printf("ID: %d%nNome: %s%nNumero Escolhido: %.2f%nDiferença: %.2f%n");
     }
-    
+     
 }
