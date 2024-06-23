@@ -30,7 +30,7 @@ public class Sorteio {
 
     public static int gerarNumeroRandomico() {
         int numeroRandomico = (int) (Math.random() * 100 + 1);
-        return numeroRandomico;
+        return (int) Math.floor(numeroRandomico);
     }
 
     public void cadastrarPessoa(Pessoa participante) {

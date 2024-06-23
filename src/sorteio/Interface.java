@@ -5,7 +5,6 @@ import javax.swing.JOptionPane;
 
 public class Interface extends javax.swing.JFrame {
 
-    private int numRandomico = 0;
     private Sorteio sorteio;
 
     public Interface() {
@@ -28,6 +27,7 @@ public class Interface extends javax.swing.JFrame {
         txtPalpite = new javax.swing.JTextField();
         buttonMostrarPalpites = new javax.swing.JButton();
         boxParticipantes = new javax.swing.JComboBox<>();
+        btnAtualizarPalpite = new javax.swing.JButton();
 
         jLabel2.setText("jLabel2");
 
@@ -61,12 +61,36 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
+        boxParticipantes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxParticipantesActionPerformed(evt);
+            }
+        });
+
+        btnAtualizarPalpite.setText("Atualizar Palpite");
+        btnAtualizarPalpite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarPalpiteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(163, 163, 163)
+                                .addComponent(labelSorteio))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addComponent(buttonSortear)
+                                .addGap(18, 18, 18)
+                                .addComponent(buttonMostrarPalpites)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,19 +102,9 @@ public class Interface extends javax.swing.JFrame {
                             .addComponent(txtPalpite, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnAtualizarPalpite, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnPalpite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(boxParticipantes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(163, 163, 163)
-                                .addComponent(labelSorteio))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(72, 72, 72)
-                                .addComponent(buttonSortear)
-                                .addGap(18, 18, 18)
-                                .addComponent(buttonMostrarPalpites)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(boxParticipantes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -108,7 +122,9 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(labelPalpite)
                     .addComponent(txtPalpite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(boxParticipantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAtualizarPalpite)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonSortear)
                     .addComponent(buttonMostrarPalpites))
@@ -119,32 +135,46 @@ public class Interface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPalpiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPalpiteActionPerformed
-        Pessoa participante = new Pessoa();
-        participante.setNome(txtNome.getText());
-        participante.setNumeroEscolhido(Integer.parseInt(txtPalpite.getText()));
-        sorteio.cadastrarPessoa(participante);
-        atualizarBoxParticipantes();
-        JOptionPane.showMessageDialog(this, "Participante cadastrado com sucesso!");
-        txtNome.setText("");
-        txtPalpite.setText("");
+        try {
+            String nome = txtNome.getText();
+            int palpite = Integer.parseInt(txtPalpite.getText());
+            Pessoa participante = new Pessoa(nome, palpite);
+            sorteio.cadastrarPessoa(participante);
+            atualizarBoxParticipantes();
+            JOptionPane.showMessageDialog(this, "Participante cadastrado com sucesso!");
+            txtNome.setText("");
+            txtPalpite.setText("");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Não há nome ou palpite cadastrado");
+        }
 
     }//GEN-LAST:event_btnPalpiteActionPerformed
 
     private void buttonMostrarPalpitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMostrarPalpitesActionPerformed
-        Palpites palpites = new Palpites(this, true);
+        Palpites palpites = new Palpites(this, true, sorteio);
         palpites.setVisible(true);
     }//GEN-LAST:event_buttonMostrarPalpitesActionPerformed
 
     private void buttonSortearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSortearActionPerformed
-        Pessoa vencedor = sorteio.realizarSorteio();
         List<Pessoa> participantes = sorteio.getPessoas();
         if (participantes.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Não há participantes cadastrados");
             return;
+        } else {
+            Resultados resultados = new Resultados(this, true, sorteio);
+            resultados.setVisible(true);
         }
-        Resultados resultados = new Resultados(this, true, sorteio);
-        resultados.setVisible(true);
     }//GEN-LAST:event_buttonSortearActionPerformed
+
+    private void btnAtualizarPalpiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarPalpiteActionPerformed
+        // TODO add your handling code here:
+        editarPalpite();
+    }//GEN-LAST:event_btnAtualizarPalpiteActionPerformed
+
+    private void boxParticipantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxParticipantesActionPerformed
+        // TODO add your handling code here:
+        atualizarCamposParticipanteSelecionado();
+    }//GEN-LAST:event_boxParticipantesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,13 +188,17 @@ public class Interface extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Interface.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Interface.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Interface.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Interface.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -211,6 +245,7 @@ public class Interface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Pessoa> boxParticipantes;
+    private javax.swing.JButton btnAtualizarPalpite;
     private javax.swing.JButton btnPalpite;
     private javax.swing.JButton buttonMostrarPalpites;
     private javax.swing.JButton buttonSortear;

@@ -23,7 +23,7 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public double getNumeroEscolhido() {
+    public int getNumeroEscolhido() {
         return numeroEscolhido;
     }
 
