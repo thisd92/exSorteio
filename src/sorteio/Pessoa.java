@@ -1,23 +1,18 @@
 package sorteio;
 
-public class Pessoa {
-    private int id;
-    private String nome;
-    private double numeroEscolhido;
-    private double diferenca;
+import java.util.List;
 
-    public Pessoa(String nome, double numeroEscolhido) {
-        this.id = gerarID(0);
+public class Pessoa {
+
+    private String nome;
+    private int numeroEscolhido;
+
+    public Pessoa() {
+    }
+
+    public Pessoa(String nome, int numeroEscolhido) {
         this.nome = nome;
         this.numeroEscolhido = numeroEscolhido;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -28,16 +23,12 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public double getNumeroEscolhido() {
+    public int getNumeroEscolhido() {
         return numeroEscolhido;
     }
 
-    public void setNumeroEscolhido(double numeroEscolhido) {
+    public void setNumeroEscolhido(int numeroEscolhido) {
         this.numeroEscolhido = numeroEscolhido;
     }
-    
-    public static int gerarID(int ultimoID){
-        int id = ultimoID;
-        return id++;
-    }
+
 }

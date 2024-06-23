@@ -5,6 +5,9 @@
  */
 package sorteio;
 
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 182400306
@@ -14,9 +17,27 @@ public class Resultados extends javax.swing.JDialog {
     /**
      * Creates new form Resultados
      */
-    public Resultados(java.awt.Frame parent, boolean modal) {
+    public Resultados(java.awt.Frame parent, boolean modal, Sorteio sorteio) {
         super(parent, modal);
         initComponents();
+        novoSorteio(sorteio);
+    }
+
+    private void novoSorteio(Sorteio sorteio) {
+        List<Pessoa> participantes = sorteio.getPessoas();
+        Pessoa vencedor = sorteio.realizarSorteio();
+        labelNumSorteado.setText(String.valueOf(sorteio.getNumeroSorteado()));
+        StringBuilder sb = new StringBuilder();
+        for (Pessoa p : participantes) {
+            int diferenca = (int) Math.abs(p.getNumeroEscolhido() - sorteio.getNumeroSorteado());
+            sb.append("Participante: ").append(p.getNome()).append("\n");
+            sb.append("Palpite: ").append(p.getNumeroEscolhido()).append("\n");
+            sb.append("Diferença: ").append(diferenca).append("\n\n");
+        }
+
+        txtResultados.setText(sb.toString());
+        labelVencedor.setText("Vencedor: " + vencedor.getNome() + " - Palpite: " + vencedor.getNumeroEscolhido());
+
     }
 
     /**
@@ -29,85 +50,38 @@ public class Resultados extends javax.swing.JDialog {
     private void initComponents() {
 
         labelTituloResultados = new javax.swing.JLabel();
-        resultado1 = new javax.swing.JLabel();
-        resultado2 = new javax.swing.JLabel();
-        resultado3 = new javax.swing.JLabel();
-        resultado4 = new javax.swing.JLabel();
-        resultado5 = new javax.swing.JLabel();
-        resultado6 = new javax.swing.JLabel();
-        resultado7 = new javax.swing.JLabel();
-        resultado8 = new javax.swing.JLabel();
-        resultado9 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        labelTitNumSorteado = new javax.swing.JLabel();
+        labelVencedor = new javax.swing.JLabel();
+        labelNumSorteado = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtResultados = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         labelTituloResultados.setText("Resultados");
 
-        resultado1.setText("1 - Nome - Diferença");
+        labelTitNumSorteado.setText("Numero Sorteado:");
 
-        resultado2.setText("2");
-
-        resultado3.setText("3");
-
-        resultado4.setText("4");
-
-        resultado5.setText("5");
-
-        resultado6.setText("6");
-
-        resultado7.setText("7");
-
-        resultado8.setText("8");
-
-        resultado9.setText("9");
-
-        jLabel1.setText("Numero Sorteado: + numero");
-
-        jLabel2.setText("Ganhador + voce ganhou parabens");
+        txtResultados.setColumns(20);
+        txtResultados.setRows(5);
+        jScrollPane1.setViewportView(txtResultados);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelVencedor)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(resultado2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(resultado3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(resultado4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(resultado5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(resultado6))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(resultado7))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(resultado8))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(resultado9))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(labelTituloResultados)
-                            .addComponent(resultado1))
+                        .addComponent(labelTituloResultados)
                         .addGap(30, 30, 30)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(jLabel2)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addComponent(labelTitNumSorteado)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelNumSorteado, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,28 +89,13 @@ public class Resultados extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelTituloResultados)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(resultado1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(resultado2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(resultado3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(resultado4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(resultado5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(resultado6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(resultado7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(resultado8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(resultado9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addContainerGap(38, Short.MAX_VALUE))
+                    .addComponent(labelTitNumSorteado)
+                    .addComponent(labelNumSorteado))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(labelVencedor)
+                .addContainerGap())
         );
 
         pack();
@@ -144,17 +103,11 @@ public class Resultados extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelNumSorteado;
+    private javax.swing.JLabel labelTitNumSorteado;
     private javax.swing.JLabel labelTituloResultados;
-    private javax.swing.JLabel resultado1;
-    private javax.swing.JLabel resultado2;
-    private javax.swing.JLabel resultado3;
-    private javax.swing.JLabel resultado4;
-    private javax.swing.JLabel resultado5;
-    private javax.swing.JLabel resultado6;
-    private javax.swing.JLabel resultado7;
-    private javax.swing.JLabel resultado8;
-    private javax.swing.JLabel resultado9;
+    private javax.swing.JLabel labelVencedor;
+    private javax.swing.JTextArea txtResultados;
     // End of variables declaration//GEN-END:variables
 }
