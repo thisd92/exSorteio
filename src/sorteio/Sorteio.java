@@ -1,6 +1,7 @@
 package sorteio;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Sorteio {
@@ -42,6 +43,17 @@ public class Sorteio {
             if (p.equals(participante)) {
                 p.setNumeroEscolhido(novoPalpite);
                 break;
+            }
+        }
+    }
+
+    public void deletarPalpite(Pessoa participante) {
+        Iterator<Pessoa> iterator = pessoas.iterator();
+        while (iterator.hasNext()) {
+            Pessoa p = iterator.next();
+            if (p.equals(participante)) {
+                iterator.remove(); // Remove o participante de forma segura
+                return; // Termina o loop, já que o participante foi encontrado e removido
             }
         }
     }
