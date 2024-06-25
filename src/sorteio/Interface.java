@@ -1,7 +1,9 @@
 package sorteio;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
@@ -11,6 +13,10 @@ public class Interface extends javax.swing.JFrame {
     private Sorteio sorteio;
 
     public Interface() {
+        ImageIcon icon = new ImageIcon(getClass().getResource("/resources/roleta.png"));
+        Image imagemIcone = icon.getImage();
+        setIconImage(imagemIcone);
+
         // Define a fonte padrão
         Font fontePadrao = new Font("Arial", Font.PLAIN, 20);
 
@@ -23,6 +29,7 @@ public class Interface extends javax.swing.JFrame {
         UIManager.put("TextArea.font", new FontUIResource(fontePadrao));
 
         initComponents();
+        setTitle("Sorteio");
         sorteio = new Sorteio();
 
     }
@@ -272,7 +279,9 @@ public class Interface extends javax.swing.JFrame {
             try {
                 sorteio.deletarPalpite(participanteSelecionado);
                 JOptionPane.showMessageDialog(this, "Palpite deletado com sucesso!");
-                atualizarBoxParticipantes(); // Atualiza a lista de participantes na interface
+                atualizarBoxParticipantes();
+                txtNome.setText("");
+                txtPalpite.setText("");
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Erro ao deletar palpite.");
             }
