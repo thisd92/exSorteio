@@ -69,6 +69,7 @@
                   <Component id="boxParticipantes" alignment="1" max="32767" attributes="0"/>
                   <Component id="btnDelPalpite" alignment="1" max="32767" attributes="0"/>
                   <Component id="buttonMostrarPalpites" max="32767" attributes="0"/>
+                  <Component id="bntPrevPalpites" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
           </Group>
@@ -108,10 +109,12 @@
                   <Component id="btnDelPalpite" min="-2" max="-2" attributes="0"/>
                   <Component id="btnPalpite" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="39" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="buttonMostrarPalpites" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonSortear" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonMostrarPalpites" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="bntPrevPalpites" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
           </Group>
@@ -189,6 +192,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDelPalpiteActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="bntPrevPalpites">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Sorteios Anteriores"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bntPrevPalpitesActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
