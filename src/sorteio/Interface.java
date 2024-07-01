@@ -7,10 +7,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
+import javax.swing.table.DefaultTableModel;
 
 public class Interface extends javax.swing.JFrame {
 
     private Sorteio sorteio;
+    private Sorteado sorteados;
 
     public Interface() {
         ImageIcon icon = new ImageIcon(getClass().getResource("/resources/roleta.png"));
@@ -31,6 +33,7 @@ public class Interface extends javax.swing.JFrame {
         initComponents();
         setTitle("Sorteio");
         sorteio = new Sorteio();
+        sorteados = new Sorteado();
 
     }
 
@@ -51,6 +54,7 @@ public class Interface extends javax.swing.JFrame {
         boxParticipantes = new javax.swing.JComboBox<>();
         btnAtualizarPalpite = new javax.swing.JButton();
         btnDelPalpite = new javax.swing.JButton();
+        bntPrevPalpites = new javax.swing.JButton();
 
         jLabel2.setText("jLabel2");
 
@@ -104,6 +108,13 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
+        bntPrevPalpites.setText("Sorteios Anteriores");
+        bntPrevPalpites.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntPrevPalpitesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,7 +144,8 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(btnAtualizarPalpite, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                     .addComponent(boxParticipantes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDelPalpite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonMostrarPalpites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(buttonMostrarPalpites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bntPrevPalpites, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(43, 43, 43))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -163,10 +175,12 @@ public class Interface extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnDelPalpite)
                     .addComponent(btnPalpite))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonMostrarPalpites)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonSortear)
-                    .addComponent(buttonMostrarPalpites))
+                    .addComponent(bntPrevPalpites))
                 .addGap(25, 25, 25))
         );
 
@@ -200,7 +214,7 @@ public class Interface extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Não há participantes cadastrados");
             return;
         } else {
-            Resultados resultados = new Resultados(this, true, sorteio);
+            Resultados resultados = new Resultados(this, true, sorteio, sorteados);
             resultados.setVisible(true);
         }
     }//GEN-LAST:event_buttonSortearActionPerformed
@@ -219,6 +233,16 @@ public class Interface extends javax.swing.JFrame {
         // TODO add your handling code here:
         deletarPalpite();
     }//GEN-LAST:event_btnDelPalpiteActionPerformed
+
+    private void bntPrevPalpitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPrevPalpitesActionPerformed
+        // TODO add your handling code here:
+        if (sorteados != null) {
+            PrevPalpites prevPalpite = new PrevPalpites(this, true, sorteio, sorteados);
+            prevPalpite.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Nenhum sorteio foi realizado ainda.");
+        }
+    }//GEN-LAST:event_bntPrevPalpitesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -303,6 +327,7 @@ public class Interface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bntPrevPalpites;
     private javax.swing.JComboBox<Pessoa> boxParticipantes;
     private javax.swing.JButton btnAtualizarPalpite;
     private javax.swing.JButton btnDelPalpite;

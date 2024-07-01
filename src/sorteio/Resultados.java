@@ -5,6 +5,7 @@
  */
 package sorteio;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -17,19 +18,23 @@ public class Resultados extends javax.swing.JDialog {
     /**
      * Creates new form Resultados
      */
-    public Resultados(java.awt.Frame parent, boolean modal, Sorteio sorteio) {
+    public Resultados(java.awt.Frame parent, boolean modal, Sorteio sorteio, Sorteado sorteados) {
         super(parent, modal);
         initComponents();
-        novoSorteio(sorteio);
+        novoSorteio(sorteio, sorteados);
     }
 
-    private void novoSorteio(Sorteio sorteio) {
+    private void novoSorteio(Sorteio sorteio, Sorteado sorteados) {
         List<Pessoa> participantes = sorteio.getPessoas();
         Pessoa vencedor = sorteio.realizarSorteio();
+        sorteados.addVencedor(vencedor);
+        sorteados.addNumeroSorteado(sorteio.getNumeroSorteado());
+        sorteados.addDiferenca(sorteio.getDif());
         labelNumSorteado.setText(String.valueOf(sorteio.getNumeroSorteado()));
+
         StringBuilder sb = new StringBuilder();
         for (Pessoa p : participantes) {
-            int diferenca = (int) Math.abs(p.getNumeroEscolhido() - sorteio.getNumeroSorteado());
+            int diferenca = Math.abs(p.getNumeroEscolhido() - sorteio.getNumeroSorteado());
             sb.append("Participante: ").append(p.getNome()).append("\n");
             sb.append("Palpite: ").append(p.getNumeroEscolhido()).append("\n");
             sb.append("Diferença: ").append(diferenca).append("\n\n");
